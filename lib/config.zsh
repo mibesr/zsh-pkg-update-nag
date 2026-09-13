@@ -32,7 +32,7 @@ _zpun_config_load() {
   : ${zsh_pkg_update_nag_gem:=off}
   : ${zsh_pkg_update_nag_cargo:=all}
   : ${zsh_pkg_update_nag_mise:=all}
-  : ${zsh_pkg_update_nag_gobin:=all}
+  : ${zsh_pkg_update_nag_go:=all}
   : ${zsh_pkg_update_nag_min_age:=0}
 
   # Whether Homebrew runs its own confirmation prompt during an upgrade.

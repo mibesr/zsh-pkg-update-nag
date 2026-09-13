@@ -45,7 +45,7 @@ _zpun_gobin_latest() {
   [[ -n $latest ]] && print -r -- "$latest"
 }
 
-_zpun_provider_gobin() {
+_zpun_provider_go() {
   emulate -L zsh
   setopt local_options null_glob
 
@@ -66,7 +66,7 @@ _zpun_provider_gobin() {
   done
 
   (( ${#rows} )) || return 0
-  print -r -- "${(F)rows}" | _zpun_filter_by_allowlist gobin
+  print -r -- "${(F)rows}" | _zpun_filter_by_allowlist go
 }
 
 # Shared by _zpun_run_upgrade: resolve import path for a binary name under GOBIN.

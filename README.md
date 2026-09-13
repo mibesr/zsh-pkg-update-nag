@@ -127,7 +127,7 @@ zsh_pkg_update_nag_uv=all
 zsh_pkg_update_nag_gem=off
 zsh_pkg_update_nag_cargo=all
 zsh_pkg_update_nag_mise=all
-zsh_pkg_update_nag_gobin=all
+zsh_pkg_update_nag_go=all
 
 # Example: watch only two npm globals.
 # zsh_pkg_update_nag_npm=(typescript prettier)
