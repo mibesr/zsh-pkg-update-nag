@@ -3,6 +3,8 @@
 # _zpun_config_load — set defaults, then source the user's config if present.
 # Idempotent; safe to call multiple times.
 
+readonly _ZPUN_VERSION="0.7.0"
+
 # Canonical manager order used by scan loops, min-age, and --check-env.
 typeset -ga _ZPUN_MANAGERS=(brew npm pnpm uv gem cargo mise go)
 
@@ -15,7 +17,7 @@ typeset -gA _ZPUN_MANAGER_LABELS=(
   gem   "RubyGems"
   cargo "cargo (Rust)"
   mise  "mise"
-  go "gobin (Go)"
+  go    "gobin (Go)"
 )
 
 _zpun_config_load() {
