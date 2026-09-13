@@ -17,7 +17,7 @@ typeset -gA _ZPUN_MANAGER_LABELS=(
   gem   "RubyGems"
   cargo "cargo (Rust)"
   mise  "mise"
-  go    "gobin (Go)"
+  go    "go (gobin)"
 )
 
 _zpun_config_load() {
