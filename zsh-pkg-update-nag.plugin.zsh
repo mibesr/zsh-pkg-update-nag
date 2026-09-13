@@ -238,13 +238,13 @@ _zpun_run_upgrade() {
       # "latest matching request" and upgrades in place.
       cmd=(mise upgrade "$pkg")
       ;;
-    gobin)
+    go)
       local import_path
       # Provider helpers are available when this runs from the interactive path
       # (providers already sourced by collect). Re-source if called standalone.
-      (( $+functions[_zpun_gobin_import_path] )) ||         source "$_ZPUN_DIR/lib/providers/gobin.zsh"
+      (( $+functions[_zpun_gobin_import_path] )) || source "$_ZPUN_DIR/lib/providers/go.zsh"
       import_path=$(_zpun_gobin_import_path "$pkg") || {
-        _zpun_ui_error "gobin: cannot resolve import path for $pkg"; return 1
+        _zpun_ui_error "go: cannot resolve import path for $pkg"; return 1
       }
       cmd=(go install "${import_path}@${version:-latest}")
       ;;
