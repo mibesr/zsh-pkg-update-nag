@@ -51,7 +51,7 @@ _zpun_min_age_active() {
   setopt local_options
 
   local m override_var t
-  for m in brew npm pnpm uv gem cargo; do
+  for m in ${_ZPUN_MANAGERS[@]}; do
     override_var="zsh_pkg_update_nag_min_age_${m}"
     if (( ${(P)+override_var} )); then
       t=${(P)override_var:-0}
@@ -96,13 +96,13 @@ _zpun_collect_outdated() {
   if _zpun_min_age_active; then
     source "$_ZPUN_DIR/lib/min_age.zsh"
     _have_min_age=1
-    for manager in brew npm pnpm uv gem cargo; do
+    for manager in ${_ZPUN_MANAGERS[@]}; do
       _zpun_manager_enabled "$manager" || continue
       source "$_ZPUN_DIR/lib/providers/${manager}.zsh"
     done
   fi
 
-  for manager in brew npm pnpm uv gem cargo; do
+  for manager in ${_ZPUN_MANAGERS[@]}; do
     _zpun_manager_enabled "$manager" || continue
     provider_fn="_zpun_provider_${manager}"
 
@@ -232,6 +232,23 @@ _zpun_run_upgrade() {
         cmd=(cargo install-update "$pkg")
       fi
       ;;
+    mise)
+      # Stay within the requested version range (no --bump). Pinning to an
+      # exact version is possible via mise use, but the nag surfaces the
+      # "latest matching request" and upgrades in place.
+      cmd=(mise upgrade "$pkg")
+      ;;
+    gobin)
+      local import_path
+      # Provider helpers are available when this runs from the interactive path
+      # (providers already sourced by collect). Re-source if called standalone.
+      (( $+functions[_zpun_gobin_import_path] )) ||         source "$_ZPUN_DIR/lib/providers/gobin.zsh"
+      import_path=$(_zpun_gobin_import_path "$pkg") || {
+        _zpun_ui_error "gobin: cannot resolve import path for $pkg"; return 1
+      }
+      cmd=(go install "${import_path}@${version:-latest}")
+      ;;
+
     *)    _zpun_ui_error "unknown manager: $manager"; return 2 ;;
   esac
 

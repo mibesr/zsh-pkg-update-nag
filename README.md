@@ -24,7 +24,7 @@ A zsh plugin that surfaces outdated global packages at the start of a shell sess
 - **`n`** (or Esc): skip everything; no re-nag until the next interval.
 - **`s`**: step through per-package `Y/n` across all managers.
 
-Supports **Homebrew** (formulae and casks), **npm (global)**, **pnpm (global)**, **uv tools**, **RubyGems**, and **cargo** (via [`cargo-update`](https://crates.io/crates/cargo-update)). Each manager is independently configurable as `all`, `off`, or an explicit allowlist.
+Supports **Homebrew** (formulae and casks), **npm (global)**, **pnpm (global)**, **uv tools**, **RubyGems**, **cargo** (via [`cargo-update`](https://crates.io/crates/cargo-update)), **mise**, and **gobin** (Go binaries under `$GOBIN` via `go version -m` + `go install`). Each manager is independently configurable as `all`, `off`, or an explicit allowlist.
 
 ### Why?
 
@@ -126,6 +126,8 @@ zsh_pkg_update_nag_pnpm=all
 zsh_pkg_update_nag_uv=all
 zsh_pkg_update_nag_gem=off
 zsh_pkg_update_nag_cargo=all
+  zsh_pkg_update_nag_mise=all
+  zsh_pkg_update_nag_gobin=all
 
 # Example: watch only two npm globals.
 # zsh_pkg_update_nag_npm=(typescript prettier)

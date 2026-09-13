@@ -2,6 +2,22 @@
 
 # _zpun_config_load — set defaults, then source the user's config if present.
 # Idempotent; safe to call multiple times.
+
+# Canonical manager order used by scan loops, min-age, and --check-env.
+typeset -ga _ZPUN_MANAGERS=(brew npm pnpm uv gem cargo mise go)
+
+# Human-friendly labels for each supported manager.
+typeset -gA _ZPUN_MANAGER_LABELS=(
+  brew  "Homebrew"
+  npm   "npm (global)"
+  pnpm  "pnpm (global)"
+  uv    "uv tools"
+  gem   "RubyGems"
+  cargo "cargo (Rust)"
+  mise  "mise"
+  go "gobin (Go)"
+)
+
 _zpun_config_load() {
   emulate -L zsh
   setopt local_options
@@ -13,6 +29,8 @@ _zpun_config_load() {
   : ${zsh_pkg_update_nag_uv:=all}
   : ${zsh_pkg_update_nag_gem:=off}
   : ${zsh_pkg_update_nag_cargo:=all}
+  : ${zsh_pkg_update_nag_mise:=all}
+  : ${zsh_pkg_update_nag_gobin:=all}
   : ${zsh_pkg_update_nag_min_age:=0}
 
   # Whether Homebrew runs its own confirmation prompt during an upgrade.

@@ -1,15 +1,5 @@
 # Terminal UI: color-aware printers, summary formatter, and tiered prompt loop.
 
-# Human-friendly labels for each supported manager.
-typeset -gA _ZPUN_MANAGER_LABELS=(
-  brew "Homebrew"
-  npm  "npm (global)"
-  pnpm "pnpm (global)"
-  uv   "uv tools"
-  gem  "RubyGems"
-  cargo "cargo (Rust)"
-)
-
 _zpun_ui_color_enabled() {
   emulate -L zsh
   setopt local_options
@@ -506,7 +496,7 @@ _zpun_ui_print_env() {
   print -r -- "  stamp:         $stamp_status"
   print -r -- "  managers:"
   local m mode allow available age_label age_threshold ask_label
-  for m in brew npm pnpm uv gem cargo; do
+  for m in ${_ZPUN_MANAGERS[@]}; do
     mode="off"
     if _zpun_manager_enabled "$m"; then
       allow=$(_zpun_manager_allowlist "$m" | tr '\n' ' ')
